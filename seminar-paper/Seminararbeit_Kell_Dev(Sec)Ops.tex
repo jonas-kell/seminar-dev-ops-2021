@@ -12,7 +12,7 @@ toc=bibliographynumbered            %bibliography gets a number and is listed in
 \usepackage[T1]{fontenc}                        %correct encoding of output, technically not needed anymore
 \usepackage[english,ngerman]{babel}             %font that supports German and Englisch
 \usepackage{upgreek}                            %non-cursive Greek letters
-\usepackage[stretch=10,shrink=10,protrusion=true,expansion=true,final]{microtype}                          %prettier blocksatz
+\usepackage[stretch=10,shrink=10,protrusion=true,expansion=true,final]{microtype}                          %prettier Blocksatz
 \usepackage{hyperref}                           %links for everything
 \usepackage{color}                              %allows for setting in different colors
 \usepackage[autooneside=false,automark]{scrlayer-scrpage}%page-style with "Kolumnentitel" (title of current chapter is displayed at the top)
@@ -28,7 +28,7 @@ toc=bibliographynumbered            %bibliography gets a number and is listed in
 \usepackage[onehalfspacing]{setspace}           %control the spacing between lines and in enumeration lists
 \usepackage[backend=biber, style=phys, biblabel=brackets]{biblatex}         %citations with "modern" backend and an physics-accepted citation style
 \usepackage{graphicx}                           %work with graphics 
-\usepackage{ragged2e}                           %ragged-commands (nicht-blocksatz einstellung)
+\usepackage{ragged2e}                           %ragged-commands (nicht-Blocksatz Einstellung)
 \usepackage{pdfpages}                           %allows including of pdfs into this pdf
 \usepackage{booktabs}                           %better table formatting
 \usepackage{multicol}                           %allows for the definition of multi-columns in tables
@@ -38,7 +38,7 @@ toc=bibliographynumbered            %bibliography gets a number and is listed in
 \usepackage{pgfplots}                           %better plotting with tikz
 \usepackage{float}                              %provides the "H" option for forcing placement of a figure
 \usepackage[section]{placeins}                  %provides the command "\FloatBarrier" to control the end of floatable regions for figures/tables
-\usepackage{floatpag}                           %make it possible for float-pages to not have a pagenumber
+\usepackage{floatpag}                           %make it possible for float-pages to not have a page number
 \usepackage{url}                                %sometimes needed by biblatex, technically no longer needed
 \usepackage{minted}                             %nice code highlighting 
 \usepackage{accents}                            %better control over accents
@@ -100,7 +100,7 @@ pdfsubject = {Dev-Ops and License-Checking}
 
 \begin{document}
 \thispagestyle{empty}           %make sure title page ist not numbered or anything else
-% \includepdf{Titelseite}         %include title-page pdf
+\input{titlepage.tex}           %include title-page
 \cleardoublepage                %make sure, that if double-page is active, to reset the double page counter
 \pagestyle{scrheadings}         %puts current chapters title into the header in small grey font
 \pagenumbering{roman}           %number the pages of the table of contents in roman numerals

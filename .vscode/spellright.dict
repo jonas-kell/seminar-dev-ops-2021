@@ -2,3 +2,12 @@ json
 gitlab-ci.yml
 Inbetriebnahmebeschreibung
 dependet
+libertinus
+tikz
+svg
+biblatex
+siunitx
+frac
+displaymath
+bibtex
+mailto
