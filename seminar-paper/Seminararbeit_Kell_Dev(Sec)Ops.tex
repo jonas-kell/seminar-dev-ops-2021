@@ -1,0 +1,129 @@
+\documentclass[
+headings=optiontohead,              %allows double headers
+12pt,                               %fontsize 
+DIV=13,                             %koma script diveider amount. tells koma how much of the site can be written to
+twoside=false,                      %if set to true, automatically formats as book style with different left and right pages
+open=right,                         %starting page on twosided texts 
+BCOR=0mm,                           %correction that accounts for the center of the pages being glued in
+toc=bibliographynumbered            %bibliography gets a number and is listed in the table of contents
+]{scrreport}
+
+\usepackage[utf8]{inputenc}                     %correct encoding of output, technically not needed anymore
+\usepackage[T1]{fontenc}                        %correct encoding of output, technically not needed anymore
+\usepackage[english,ngerman]{babel}             %font that supports German and Englisch
+\usepackage{upgreek}                            %non-cursive Greek letters
+\usepackage[stretch=10,shrink=10,protrusion=true,expansion=true,final]{microtype}                          %prettier blocksatz
+\usepackage{hyperref}                           %links for everything
+\usepackage{color}                              %allows for setting in different colors
+\usepackage[autooneside=false,automark]{scrlayer-scrpage}%page-style with "Kolumnentitel" (title of current chapter is displayed at the top)
+\usepackage[autostyle=true]{csquotes}           %context-sensitive-quotes -> quotation marks that are set correctly for the context
+\usepackage{lmodern}                           %alternative font (better use libertinus)
+\usepackage[sb]{libertinus}                     %use the font libertinus (needs to be installed from the web)
+\usepackage[slantedGreek]{libertinust1math}     %math mode improvement for libertinus
+\usepackage{siunitx}                            %physical units setting
+\usepackage{icomma}                             %commas in lists get extra space if needed                        
+\usepackage{amsfonts,amssymb,amstext,amsmath,amsthm} %better math mode (\mathrm and \text) and symbols
+\usepackage{xspace}                             %works to improve own commands and provides "\xspace"-command, that puts a space if needed
+\usepackage{ifthen}                             %more control over non-obligatory parameters
+\usepackage[onehalfspacing]{setspace}           %control the spacing between lines and in enumeration lists
+\usepackage[backend=biber, style=phys, biblabel=brackets]{biblatex}         %citations with "modern" backend and an physics-accepted citation style
+\usepackage{graphicx}                           %work with graphics 
+\usepackage{ragged2e}                           %ragged-commands (nicht-blocksatz einstellung)
+\usepackage{pdfpages}                           %allows including of pdfs into this pdf
+\usepackage{booktabs}                           %better table formatting
+\usepackage{multicol}                           %allows for the definition of multi-columns in tables
+\usepackage{multirow}                           %allows for the definition of multirow-tables instead of just multicolumn
+\usepackage{tikz}                               %generate nice svg-pictures directly in latex
+\usepackage{tikz-qtree}                         %generate trees with tikz
+\usepackage{pgfplots}                           %better plotting with tikz
+\usepackage{float}                              %provides the "H" option for forcing placement of a figure
+\usepackage[section]{placeins}                  %provides the command "\FloatBarrier" to control the end of floatable regions for figures/tables
+\usepackage{floatpag}                           %make it possible for float-pages to not have a pagenumber
+\usepackage{url}                                %sometimes needed by biblatex, technically no longer needed
+\usepackage{minted}                             %nice code highlighting 
+\usepackage{accents}                            %better control over accents
+\usepackage{mathtools}                          %more math control possibilities
+
+\usepackage{lipsum}                             %Generate blind text lorem ipsum
+\usepackage{blindtext}                          %Generate blind text documents (in German)
+
+\input{format}                                  %another file that holds format information
+\input{commands}                                %another file that holds predefined commands
+
+\graphicspath{{./images/}{./attachments/}}      %custom paths for folders in that graphics can be found
+
+\linespread{1.1}                        %line-spacing can be controlled here
+
+\sisetup                                %setup for siunitx
+{
+detect-all,
+locale=DE,                              %language setup for siunitx
+range-phrase={ \text{bis} },            %word that is put into an si range
+range-units = brackets,                 %better display of error ranges
+per-mode=symbol-or-fraction,            %more dynamic frac usage in inline/displaymath mode
+separate-uncertainty,                   %for better +- , \pm when including an error range 
+}
+
+\hypersetup
+{
+colorlinks=true,
+linkcolor=dblue,            %deep blue linkcolor
+urlcolor=dblue,             %deep blue linkcolor
+citecolor=dblue,            %deep blue linkcolor
+pdfauthor = {Jonas Kell},                                   %write details into the expanded file properties
+pdftitle = {Seminar Softwareentwicklung mit Dev(Sec)Ops},                         
+pdfkeywords = {dev-ops, seminararbeit, ci-cd, licenses, checking},            
+pdfsubject = {Dev-Ops and License-Checking}                      
+}
+
+\AtBeginDocument{
+	\let\mathbb\relax
+	\DeclareMathAlphabet\PazoBB{U}{fplmbb}{m}{n}
+	\newcommand{\mathbb}{\PazoBB}
+}       %more options to the \mathbb command
+
+\setminted[]{
+    xleftmargin=.75cm,
+    xrightmargin=.75cm,
+    frame=single,
+    framesep=.25cm,
+    linenos,
+    tabsize=4,
+    breaklines,
+    breakafter=.,
+    breakaftersymbolpre= ,
+}           %configure the minted code-highlighting style
+
+\addbibresource{Literatur.bib}              %initialize bibtex with correct file
+
+%!START THE DOCUMENT
+
+\begin{document}
+\thispagestyle{empty}           %make sure title page ist not numbered or anything else
+% \includepdf{Titelseite}         %include title-page pdf
+\cleardoublepage                %make sure, that if double-page is active, to reset the double page counter
+\pagestyle{scrheadings}         %puts current chapters title into the header in small grey font
+\pagenumbering{roman}           %number the pages of the table of contents in roman numerals
+\tableofcontents                %table of contents include
+\cleardoublepage                %make sure, that if double-page is active, to reset the double page counter
+\pagenumbering{arabic}          %number the pages of the main document in Arabic numerals
+
+% After this, the redefinition of the "Kolumnentitel" takes place
+\clearpairofpagestyles
+\ihead{\leftmark}
+\ohead{\Ifstr{\leftmark}{\rightmark}{}{\rightmark}}
+\cfoot*{\pagemark}
+% End of the "Kolumnentitel" redefinition
+
+
+\Blinddocument                  %generate a whole document for testing
+
+
+%!LITERATURE AREA AND BIBLIOGRAPHY
+\nocite{*} %cite all sources in the bibliography even if they aren't cited in the document
+\printbibliography[title=Literaturverzeichnis] %bibliography with custom title
+
+%! Anhänge
+\chapter{Anhänge}
+
+\end{document}

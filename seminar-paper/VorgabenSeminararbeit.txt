@@ -1,0 +1,25 @@
+
+Zur schriftlichen Abgabe zählen
+
+    6-seitige Diskussion über das Thema DevSecOps
+        Zitate mit WebArchive o.ä. so dass Screenshots des Tagesstatus von Websites erfasst werden
+        Der Rahmen in dem die Diskussion erfolgt soll selbst gesteckt sein.
+    Der "ideale" DevSecOps Prozess mit kurzen Begründungen (dürfte auch Bestandteil der o.g. Diskussion sein, aber das Bild zählt nicht zu den 6 Seiten dazu - die reine Bildbeschreibung ist auch noch keine Diskussion). 
+	Hierfür soll auch der Rahmen selbst gesteckt sein unter welchen Gesichtspunkten der Prozess "ideal" ist.
+    Kurze Begründung warum genau das Tool ausgewählt wurde plus Inbetriebnahmebeschreibung.
+	(Inbetriebnahme gehört nicht zum seiten limit)
+	
+	Notizen Diskussion:
+	- was wann
+	- was parallelisieren
+	- was dependet auf was
+	- was ist wichtig, was weniger
+	- Reihenfolge Priorisierung bei der Entwicklung/Aufstellung
+
+
+Schriftliche Abgabe: 15.09.21
+
+40% Vortrag
+40% 6-Seiten Diskussion
+10% DevSecOps-Prozess Skizze
+10% Begründung der Toolentscheidung + Inbetriebnahme
