@@ -50,7 +50,7 @@ toc=bibliographynumbered            %bibliography gets a number and is listed in
 \input{format}                                  %another file that holds format information
 \input{commands}                                %another file that holds predefined commands
 
-\graphicspath{{./images/}{./attachments/}}      %custom paths for folders in that graphics can be found
+\graphicspath{{./images/}}      %custom paths for folders in that graphics can be found
 
 \linespread{1.1}                        %line-spacing can be controlled here
 
@@ -83,8 +83,8 @@ pdfsubject = {Dev-Ops and License-Checking}
 }       %more options to the \mathbb command
 
 \setminted[]{
-    xleftmargin=.75cm,
-    xrightmargin=.75cm,
+    xleftmargin=.2cm,
+    xrightmargin=.2cm,
     frame=single,
     framesep=.25cm,
     linenos,
@@ -115,9 +115,9 @@ pdfsubject = {Dev-Ops and License-Checking}
 \cfoot*{\pagemark}
 % End of the "Kolumnentitel" redefinition
 
-
-\Blinddocument                  %generate a whole document for testing
-
+\input{chapters/discussion.tex}
+\input{chapters/process.tex}
+\input{chapters/license-checker.tex}
 
 %!LITERATURE AREA AND BIBLIOGRAPHY
 \nocite{*} %cite all sources in the bibliography even if they aren't cited in the document
@@ -125,5 +125,12 @@ pdfsubject = {Dev-Ops and License-Checking}
 
 %! Anhänge
 \chapter{Anhänge}
-
+    \section*{.gitlab-ci.yml} \label{anhang:gitlabci}
+        \inputminted{yaml}{../code/.gitlab-ci.yml} 
+    \newpage
+    \section*{license-checker/npm-licenses.sh} \label{anhang:script-npm}
+        \inputminted{bash}{../code/license-checker/npm-licenses.sh} 
+    \newpage
+    \section*{license-checker/composer-licenses.sh} \label{anhang:script-composer}
+        \inputminted{bash}{../code/license-checker/composer-licenses.sh} 
 \end{document}
