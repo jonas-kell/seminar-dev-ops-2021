@@ -1,4 +1,49 @@
 \chapter{Dev-Sec-Ops Werkzeug: License Checker}
 
+Im letzten Kapitel wird auf eine Anforderung des begleitenden Vortrages \emph{Compliance: License-Checker} eingegangen. 
+Im Zuge des Seminars sollten Nachforschungen zu einem ausgewählten Bestandteil des DevOps Prozesses angestellt werden. 
+In diesem Fall wurde als Thema die \emph{License-Compliance} gewählt, also das Aufbauen unternehmensinterner Richtlinien und Methoden um bei der Arbeit mit Fremdsoftware die Lizenz Bestimmungen einzuhalten \cite{validatisComplianceDefinitionBedeutung} \cite{haufe-lexwaregmbhcokgBedeutungComplianceFuer}.
+
+
+\begin{sloppypar}
+Neben der Behandlung des Themas Lizenzen, war es integraler Bestandteil der Aufgabe einen Vergleich zwischen Software-Werkzeugen vorzunehmen. Diese Werkzeuge sollen das \mbox{(Entwickler-)Team} bei der Arbeit mit Lizenzen unterstützen. Und somit als Bestandteil der DevOps-Pipeline dazu beitragen die rechtlichen Anforderungen gewährleisten zu können.
+\end{sloppypar}
+
 \section{Auswahl des geeignetsten Werkzeugs}
+
+Im Vortrag wurde ein Vergleich zwischen vier Werkzeugen vorgenommen: Die \glqq Open Source Security Platform\grqq{} \emph{Snyk} \cite{snykLicensingComplianceManagement}, das \glqq Open Source License Compliance Management Tool\grqq{} \emph{Fossa} \cite{fossaOpenSourceLicense}, das in der Versionskontrolle \emph{GitLab} integrierte Tool \emph{License Compliance} \cite{gitlabLicenseComplianceGitLab} und der \emph{Open-Source Ansatz}, einem Adapter für die Integration bereits existierender Lizenz-Überprüfungs\-werkzeuge in eine GitLab Pipeline \cite{kellOpenSourceLicenseChecker2021}.
+
+Verglichen wurde nach mehreren Parametern. Eine tabellarische Übersicht ist auf \fullpage{anhang:tabelle} gegeben. Die Informationen auf dieser Tabelle stammen allesamt aus den Quellen \cite{snykLicensingComplianceManagement} \cite{fossaOpenSourceLicense} und \cite{gitlabLicenseComplianceGitLab}. Der Open-Source Adapter wurde speziell für dieses Seminar geschrieben. Er nutzt dabei zwei Open-Source Pakete \cite{glassNPMLicenseChecker} und \cite{bauernfeindComposerLicenseChecker}.
+
+Die Entscheidung, welches der Werkzeuge das geeignetste ist, häng stark von den Gegebenheiten in der betrachteten Organisation ab. 
+Für große Firmen sind die eigenständigen Plattformen Fossa und Snyk vermutlich die beste Wahl. Ab einer bestimmten Unternehmensgröße fallen einige tausend Dollar Kosten pro Monat wenig ins Gewicht. Diese werden schnell durch die Vorteile, wie hohe Regelkomplexität, Vorkonfiguration und Support aufgewogen. 
+Snyk bietet die Lizenz-Analyse nur in den höheren Bezahlstufen an, verlangt also für alle für diesen Zweck geeigneten Anwendungsformen einen von der Entwicklerzahl abhängigen Preis. Da die Lizenz-Analyse nur Nebenfeature zu sein scheint, rentiert sich Snyk vermutlich nicht für den Zweck der Lizenzverwaltung allein, bietet aber ein starkes Ökosystem mit mehreren Werkzeugen, sollte das Angebot möglicherweise schon zu anderen Zwecken wahrgenommen werden.
+
+Fossas Angebot bringt den Vorteil einer fähigen kostenfreien Version. Durch den Verzicht auf u.a. Verwaltungsoperationen bekommt man Zugriff auf einen Lizenz-Scanner mit hoher Konfigurierbarkeit und hochwertigen Voreinstellungen. Auch die Darstellung in der eigenen GUI ist übersichtlich. Die Möglichkeit die Werkzeuge lokal auf den Entwicklermaschinen oder eigenen Servern laufen zu lassen und nur die Ergebnisse in das Dashboard hochzuladen ermöglicht es, Analysen vorzunehmen ohne Fossa Zugriff auf den Code zu gegeben. Sollte man sich für die kostenpflichtige Version entscheiden ist diese allerdings direkt teurer, als die \emph{Team}-Stufe von Snyk.
+
+Beide Plattformen lassen sich schnell mit Projekten aus einem GitLab-Repository betreiben, jedoch erfordert die Rückintegration in die GitLab Oberfläche auf den ersten Blick einen höheren Aufwand.
+
+Mit genau diesem Argument besticht das integrierte Werkzeug von GitLab. Für Organisationen, die bereits stark auf GitLab-Pipelines setzen, ist das Aufsetzten dieses Analysetools mit wenigen Schritten getan und es ist vollständig in GitLabs Oberfläche integriert. Die Analyse ist solide, jedoch weniger stark konfigurierbar. Da in den meisten Fällen die Lizenz-Analyse allerdings ohnehin von im Thema Recht geschulten Mitarbeitern überprüft werden muss, ist es mitunter schon ausreichend, wenn das Werkzeug die Lizenzen auflisten kann und Alarm schlägt, wenn ein einfacher Regelfilter durch einen Änderung verletzt wird. Beides kann das GitLab interne Werkzeug problemlos liefern. 
+Für sehr kleine Firmen oder Projekte ist schade, dass die vielseitigen Analysefunktionen nur in der \emph{Ultimate}-Version von GitLab zur Verfügung stehen. Diese ist für sich gesehen teurer, als sowohl die Angebote von Snyk und Fossa. Jedoch erlangt man durch die \emph{Ultimate}-Version Zugriff auf das komplette Angebot von Premium GitLab Funktionen. Dies ist für Firmen ab mittlerer Größe ohnehin beinahe unerlässlich, wenn GitLab als Hauptversionskontrollsystem genutzt wird. 
+
+Zuletzt soll mit der Open-Source Variante ein direkter Ersatz für das GitLab-Werkzeug vorgestellt werden. 
+Beinahe jeder Paketmanager bietet Lizenz-Analyse direkt oder mit einem Open-Source Paket. Diese sind lediglich nicht einer Pipeline Struktur automatisiert. 
+Die wenigsten dieser Pakete formatieren leider ihre Ausgabe so, dass sie von GitLab analysiert werden kann. Mit Hilfe kurzer Shell-Skripte, lässt sich die Ausgabe der meisten Werkzeuge allerdings schnell in das gängige JUnit-Format \cite{ibmJUnitStandard} übersetzen. Dies integriert die Fähigkeiten der Open-Source Werkzeuge direkt in die Oberfläche von GitLab und bietet dazu das Überprüfen von einfachen \emph{Erlaubt-} oder \emph{Verboten-Filtern}.
+
+Zusammengefasst lässt sich sagen: Kleine Unternehmen können mit etwas Aufwand für ihre Projekte die kostenlose Variante zum Einsatz bringen. Die anderen Werkzeuge rentieren sich für einzelne Projekte selten. Besteht bereits ein GitLab-Ultimate Zugang, so bietet dieser die schnellste und einfachste Lizenz-Analyse mit der besten Integration. Ist man Teil einer großen Organisation hohen Entwicklerzahlen und vielen Projekten, so werden die Angebote von Fossa oder Snyk irgendwann unerlässlich, um die Qualität der produzierten Software garantieren zu können.
+
+
 \section{Inbetriebnahme}
+
+Der finale Abschnitt soll eine Kurzanleitung für die Integration gängiger Open-Source Lizenz-Analysewerkzeuge in eine bestehende GitLab Pipeline sein.
+
+Die Skripte zusammen mit einer Kurzdokumentation auf Englisch findet sich auch unter: \cite{kellOpenSourceLicenseChecker2021}. 
+
+Für die Verwendung der Methode bedarf es einer funktionierenden GitLab Pipeline, mit entsprechenden \emph{Runnern}. Dies soll allerdings hier nicht näher erläutert werden und wird vorausgesetzt. 
+
+Für jeden verwendeten Paketmanager wird ein eigenes Skript benötigt. Die Skripte werden in einem Ordner mit dem Namen \emph{license-checker} im untersten Projektordner platziert und richtig benannt. 
+Vorkonfigurierte Skripte findet man zudem im Anhang. Für den Paketmanager \emph{npm} auf \fullpage{anhang:script-npm} und für den Paketmanager \emph{composer} auf \fullpage{anhang:script-composer}. 
+
+Damit die Skripte in einer Pipeline richtig ausgeführt werden, muss ein entsprechender Job in der Pipeline definiert werden. Vorkonfigurierte Beispiele für Jobs, die die Skripte ausführen und die Ergebnisse an GitLab zurückgeben findet man auf Seite \fullpage{anhang:gitlabci} im Anhang.
+
+In der Zeile \emph{script} müssen dann lediglich alle Lizenzen, die erlaubt werden sollen mit Semikolon getrennt zwischen die Hochkommata geschrieben werden.

@@ -24,3 +24,8 @@
 \addtokomafont{sectioning}{\rmfamily\color{dblue}\boldmath}         %rmfamily puts headings in "normal" "Serifenschrift" instead of "sans-serif"  boldmath ensures a bold math font in subscripts
 \addtokomafont{captionlabel}{\bfseries\footnotesize}                %better Abb. format
 \addtokomafont{caption}{\footnotesize}                          
+
+
+% Prevent way too long urls in the bibliography
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
