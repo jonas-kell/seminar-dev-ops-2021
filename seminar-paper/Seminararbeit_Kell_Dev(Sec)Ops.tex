@@ -124,14 +124,5 @@ pdfsubject = {Dev-Ops and License-Checking}
 \printbibliography[title=Literaturverzeichnis] %bibliography with custom title
 
 %! Anhänge
-\chapter{Anhänge}
-    \section*{.gitlab-ci.yml} \label{anhang:gitlabci}
-    \inputminted{yaml}{../code/.gitlab-ci.yml} 
-    \newpage
-    \section*{license-checker/npm-licenses.sh} \label{anhang:script-npm}
-    \inputminted{bash}{../code/license-checker/npm-licenses.sh} 
-    \newpage
-    \section*{license-checker/composer-licenses.sh} \label{anhang:script-composer}
-    \inputminted{bash}{../code/license-checker/composer-licenses.sh} 
-    \includepdf[pagecommand={\section*{Tabelle: Vergleich Lizenzwerkzeuge} \label{anhang:tabelle}},landscape=false]{./AttachmentTable.pdf}
+\input{chapters/attachments.tex}
 \end{document}
