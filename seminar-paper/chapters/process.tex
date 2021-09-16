@@ -1,4 +1,4 @@
-\chapter{Der \glqq ideale\grqq{} Dev(Sec)Ops Prozess}
+\chapter{Die \glqq ideale\grqq{} Dev(Sec)Ops Pipeline}
 
 Bereits im letzten Abschnitt wurde klar: Jeder kann sich Elemente der DevOps-Kultur aneignen und nach belieben kombinieren. 
 Eine \glqq Musterlösung\grqq{} für den idealen Prozess kann es also nicht geben. 
@@ -9,36 +9,60 @@ In diesem Kapitel soll eine Pipeline beispielhaft modelliert und nach einer pers
 
 \section{Welche Werkzeuge kommen zum Einsatz?}
 
-Die Zahl der CI/CD-Werkzeuge, die bei der Konstruktion einer Pipeline zur Verfügung stehen ist groß \cite{xebialabsXebiaLabsPrasentiertPeriodensystem2018} \cite{digital.aiPeriodicTableDevOps}. Würde man versuchen jedes Werkzeug zu integrieren / zu behandeln, so könnte man keinem gerecht werden.
+Die Zahl der CI/CD-Werkzeuge, die bei der Konstruktion einer Pipeline zur Verfügung stehen ist groß \cite{xebialabsXebiaLabsPrasentiertPeriodensystem2018} \cite{digital.aiPeriodicTableDevOps}. Würde man versuchen jedes Werkzeug zu integrieren / zu thematisieren, so könnte man keinem gerecht werden.
 Aus diesem Grund soll an dieser Stelle eine Auswahl an Werkzeugen behandelt werden. Diese setzt sich zusammen aus den Werkzeugen die im Seminar behandelt wurden, Teil von Vorträgen waren oder vom Autor als wichtig erachtet werden.
 
-Die folgenden Abschnitte bieten eine Übersicht über die betrachteten Werkzeuge:
+Die folgenden Abschnitte bieten eine Übersicht über die betrachteten Werkzeuge. Dabei werden diese in die Kategorien CI/CT/CD eingeteilt. Es wird eine kurze Erklärung gegeben, was das Werkzeug bewirkt und mit welchem realen Produkt die Stufe besetzt werden könnte.
 
 \subsection{Abschnitt: Continuous-Integration}
-Coding Style Guidelines (Bei uns: Arch Unit)
-Code Architecture (Bei uns: Arch Unit)
-Commit-Conventions (z.B. kurze GitLab Skripts)
-(Pre-) Versioning (z.B. kurze GitLab Skripts)
-License-Checker (Bei uns: GitLab)
+\begin{enumerate}[resume]
+    \itemsep-0.5em 
+    \item \textbf{Coding Style Guidelines}\label{Coding Style Guidelines} \\
+        Überprüfung, ob die \emph{Coding-Conventions} eingehalten werden. Sollte direkt in der IDE des Entwicklers überprüft werden. Hierfür kann ein \emph{Linter} \cite{guimaraesWhatLinterWhy2020} zum Einsatz kommen. Welcher ist dabei von der Programmiersprache abhängig.
+    \item \textbf{Code Architecture}\label{Code Architecture} \\
+        Überprüfung, ob \emph{architekturelle Konventionen} und \emph{Namenskonventionen} eingehalten werden. Sollte direkt in der IDE des Entwicklers überprüft werden. In den Seminarvorträgen wurde hierfür das Werkzeug \emph{Arch Unit} \cite{gafertArchUnit} ausgewählt.
+    \item \textbf{Commit-Conventions}\label{Commit-Conventions} \\
+        Um die Einhaltung der \emph{Commit-Merge}-Konventionen garantieren zu können, sollten Regeln im Dependency-Manager gesetzt werden. GitHub und GitLab beispielsweise können so konfiguriert werden, dass Merges nur von bestimmten Branches den Produktions-Branch vorgenommen werden dürfen. Durch einfache Skripte kann auch das Format der Commit-Nachrichten überprüft werden \cite{ConventionalCommits}.
+    \item \textbf{(Pre-) Versioning}\label{(Pre-) Versioning} \\
+        In der Softwareentwicklung ist die Vergabe inkrementeller Versionsnummern für die bessere Übersichtlichkeit entscheidend \cite{preston-wernerSemanticVersioning}. In der Pipeline können für bestimmte Merges Versionsnummern entweder geprüft oder sogar automatisch vergeben werden. Mit kurzen Skripten kann auch ein automatisiertes \emph{Tagging} von Releases im Dependency-Manager vorgenommen werden.
+    \item \textbf{License-Checker}\label{License-Checker} \\
+        Um den korrekten Umgang mit (Open-Source)-Lizenzen frühzeitig zu unterstützen, können automatisierte Lizenz-Überprüfungen vorgenommen werden. Hierauf wird in \autoref{chapter:license-checker} genauer eingegangen.
+\end{enumerate}
 
 \subsection{Abschnitt: Continuous-Testing}
-Unit-Tests (z.B. jUnit, phpUnit)
-Vulnerability-Checker (Bei uns: Snyk)
-E2E-Tests (z.B. Selenium)
-Dynamic Application Security Testing (DAST) (Automatisierte Pentests, Bei uns: GitLab)
-
-Application Security Management; Test / Code coverage (Aggregiert Infos aus allen Quellen, Weniger Tool, mehr Auswertung)
+\begin{enumerate}[resume]
+    \itemsep-0.5em 
+    \item \textbf{Unit-Tests}\label{Unit-Tests} \\
+        Die Grundlage eines Test-Frameworks wird von den sehr schnell ausführbaren \emph{Unit-Tests} gebildet. wie die Tests ausgeführt werden, ist von der Programmiersprache abhängig. Zum Einsatz kommen können beispielsweise \emph{jUnit} oder \emph{phpUnit}.
+    \item \textbf{Vulnerability-Checker}\label{Vulnerability-Checker} \\
+        Mithilfe dieses Werkzeuges können Schwachstellen oder Sicherheitslücken in Drittan\-bieter-Bibliotheken erkannt werden und die Kompatibilität von Abhängigkeiten kann gewährleistet werden. In den Seminarvorträgen wurde hierfür das Werkzeug der Plattform \emph{Snyk} eingesetzt \cite{snykOpenSourceSecurity}.
+    \item \textbf{E2E-Tests}\label{E2E-Tests} \\
+        Um die Funktionsweise einer vollständigen Anwendung in der Produktionsumgebung zu testen, kann ein sog. \emph{End-to-End Test} eingesetzt werden. 
+        Im Bereich der Webentwicklung können hier beispielsweise \emph{Browsertests} mit dem Werkzeug \emph{Selenium} durchgeführt werden \cite{seleniumSeleniumAutomatesBrowsers}.
+    \item \textbf{Dynamic Application Security Testing (DAST)}\label{Dynamic Application Security Testing (DAST)} \\
+        Eine Vielzahl von Sicherheitslücken wird durch wiederkehrende Programmierfehler verursacht. Um dem vorzubeugen, kann nach häufigen Sicherheitslücken in einer Applikation automatisiert gesucht werden. In den Seminarvorträgen wurde hierfür das Werkzeug von GitLab eingesetzt \cite{gitlabDynamicApplicationSecurity}.
+    \item \textbf{Application Security Management; Test/Code Coverage Statistiken}\label{Test/Code Coverage Statistiken} \\
+        Um die Informationen aus Tests und anderen Quellen möglichst gezielt verwende zu können, sollten diese zentral aggregiert und einheitlich zusammengefasst werden. 
+        Dieser Schritt dient mehr der Gesamtübersicht, anstatt neue Informationen zu gewinnen.
+\end{enumerate}
 
 \subsection{Abschnitt: Continuous-Delivery}
-Application Building (z.B. GitLab Skripts zum kompilieren für verschiedene Systeme)
-Application Deployment (z.B. GitLab Skripts zum deploy; Zero Downtime Deployments oder zumindest Wartungsmodus)
-Application Monitoring (Bei uns: Sentry)
-
+\begin{enumerate}[resume]
+    \itemsep-0.5em 
+    \item \textbf{Application Building}\label{Application Building} \\
+        Automatisiertes Kompilieren von Packen von Code zu ausführbaren Dateien oder Anwendungen kann durch einfache Skripte in grundlegenden Pipelines vorgenommen werden. Besonders ist dabei, dass leicht für verschiedene Prozessorarchitekturen und Betriebssysteme kompiliert werden kann.
+    \item \textbf{Application Deployment}\label{Application Deployment} \\
+        Automatisches ausrollen das Code in die Produktionsumgebung wird von praktisch jedem Pipelinesystem nativ unterstützt. Sollte ein spezielles Vorgehen erwünscht sein, kann zusätzlich mit SSH und einfachen Skripten unterstützt werden. Fokus sollte auf der permanenten Erreichbarkeit der Produktionsumgebung liegen, was beispielsweise mit \emph{Zero Downtime Deployment} erreicht werden kann \cite{craftquestWhatAreZero}. 
+    \item \textbf{Application Monitoring}\label{Application Monitoring} \\
+        Um die kontinuierliche Verfügbarkeit der Produktionsumgebung zu garantieren und auf Anomalien reagieren zu können, sollte aktives \emph{Monitoring} verwendet werden. In den Seminarvorträgen wurde hierfür das Werkzeug \emph{Sentry} eingesetzt \cite{sentryApplicationMonitoringError}.
+\end{enumerate}
 
 \section{Wie ordnet man seine Pipeline am besten an?}
 
 Nicht nur die Wahl der Werkzeuge ist entscheidend, sondern auch die Reihenfolge der Anordnung \cite{nemytchenkoGitLabCIRun2016}. 
 Sinnvolle Priorisierung und Parallelisierung können die Feedback-Zeit verringern und die Server entlasten. 
+
+\toolref{Coding Style Guidelines}
 
 \begin{figure}[p]
     \vspace*{1cm}
