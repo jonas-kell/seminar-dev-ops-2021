@@ -16,7 +16,6 @@ toc=bibliographynumbered            %bibliography gets a number and is listed in
 \usepackage{hyperref}                           %links for everything
 \usepackage{color}                              %allows for setting in different colors
 \usepackage[autooneside=false,automark]{scrlayer-scrpage}%page-style with "Kolumnentitel" (title of current chapter is displayed at the top)
-\usepackage[autostyle=true]{csquotes}           %context-sensitive-quotes -> quotation marks that are set correctly for the context
 \usepackage{lmodern}                           %alternative font (better use libertinus)
 \usepackage[sb]{libertinus}                     %use the font libertinus (needs to be installed from the web)
 \usepackage[slantedGreek]{libertinust1math}     %math mode improvement for libertinus
@@ -43,6 +42,7 @@ toc=bibliographynumbered            %bibliography gets a number and is listed in
 \usepackage{minted}                             %nice code highlighting 
 \usepackage{accents}                            %better control over accents
 \usepackage{mathtools}                          %more math control possibilities
+\usepackage[autostyle=true]{csquotes}           %context-sensitive-quotes -> quotation marks that are set correctly for the context
 
 \usepackage{lipsum}                             %Generate blind text lorem ipsum
 \usepackage{blindtext}                          %Generate blind text documents (in German)
@@ -75,6 +75,8 @@ pdftitle = {Seminar Softwareentwicklung mit Dev(Sec)Ops},
 pdfkeywords = {dev-ops, seminararbeit, ci-cd, licenses, checking},            
 pdfsubject = {Dev-Ops and License-Checking}                      
 }
+
+\pgfplotsset{compat=1.17}
 
 \AtBeginDocument{
 	\let\mathbb\relax
