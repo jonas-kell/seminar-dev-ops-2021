@@ -39,3 +39,17 @@ Application Monitoring (Bei uns: Sentry)
 
 Nicht nur die Wahl der Werkzeuge ist entscheidend, sondern auch die Reihenfolge der Anordnung \cite{nemytchenkoGitLabCIRun2016}. 
 Sinnvolle Priorisierung und Parallelisierung können die Feedback-Zeit verringern und die Server entlasten. 
+
+\begin{figure}[p]
+    \vspace*{1cm}
+    \setlength{\abovecaptionskip}{10pt}
+    \setlength{\belowcaptionskip}{0pt}
+    \centering
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{cicd_process.pdf}}
+    \caption{Grafische Darstellung des \glqq idealen\grqq{} Dev(Sec)Ops Prozesses in Form einer CI/CT/CD-Pipeline. 
+    Die drei Arme stellen die drei Phasen (Integration, Testing und Delivery) dar. Die Pfeile geben dabei die Richtung und den Weg an, in dem eine Änderung in die Produktionsumgebung über gehen kann. 
+    Die Zahlen entsprechen dabei mit ihrer Nummerierung den Werkzeugen, wie sie in der Pipeline angeordnet werden. 
+    Betont werden soll, dass über den inneren Kreis Stufen wiederholt werden können. Scheitert beispielsweise eine Änderung an einem Werkzeug in der \emph{Testing}-Phase, so wird die \emph{Delivery}-Phase innen übersprungen und mit der \emph{Integration}-Phase erneut begonnen. 
+    Damit soll betont werden, dass Feedback von jedem Punkt schnell wieder zum Ausgangspunkt zurückfließen kann. }
+    \label{fig:cicdprocess}
+\end{figure}
